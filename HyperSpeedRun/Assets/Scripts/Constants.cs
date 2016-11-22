@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 
+    public enum GameState
+    {
+        Start,
+        Playing,
+        Dead
+    }
 
-public enum GameState
-{
-    Start,
-    Playing,
-    Dead
-}
-
-public static class Constants
+    public static class Constants
     {
         public static readonly string PlayerTag = "Player";
         public static readonly string AnimationStarted = "started";
