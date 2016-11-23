@@ -11,6 +11,7 @@ public class StuffSpawner : MonoBehaviour
 
     public bool RandomX = false;
     public float minX = -2f, maxX = 2f;
+    private int i;
 
     void CreateObject(Vector3 position, GameObject prefab)
     {
@@ -30,17 +31,18 @@ public class StuffSpawner : MonoBehaviour
 
             CreateObject(StuffSpawnPoints[obstacleIndex].position, Obstacles[Random.Range(0, Obstacles.Length)]);
         }
-        
 
-        for (int i = 0; i & amp; amp; amp; amp; amp; lt; StuffSpawnPoints.Length; i++)
+
+
+        for (int i = 0; i < StuffSpawnPoints.Length -1; i++) 
        {
 
             if (i == obstacleIndex) continue;
+
             if (Random.Range(0, 3) == 0)
             {
                 CreateObject(StuffSpawnPoints[i].position, Bonus[Random.Range(0, Bonus.Length)]);
             }
         }
-
     }
 }
