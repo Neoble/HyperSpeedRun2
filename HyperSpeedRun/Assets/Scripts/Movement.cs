@@ -11,28 +11,38 @@ public class Movement : MonoBehaviour
     public float moveSpeedRight;
     [SerializeField]
     public float moveSpeedLeft;
+    [SerializeField]
+    public float jumpHeight;
+    public float timer;
 
-    MotherCollider collider;
+    MotherCollider colliders;
     Vector3D StartVector;
     Vector3D UpdatePosition;
     // Use this for initialization
     void Start()
     {
-        StartVector = new Vector3D(0, 1, 0);
-        collider = GetComponent<MotherCollider>();
+        StartVector = new Vector3D(0, 2, 0);
+        colliders = GetComponent<MotherCollider>();
         gameObject.transform.position = StartVector;
-        speed = 0.01f;
-        fallingSpeed = 0.1f;
         moveSpeedLeft = 0.1f;
         moveSpeedRight = 0.1f;
+        timer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!collider.grounded)
+        if (!colliders.grounded)
         {
-            this.gameObject.transform.position = Vector3D.Falling(this.gameObject, fallingSpeed);
+            timer += Time.deltaTime;
+            if (timer > 0.14f)
+            {
+                this.gameObject.transform.position = Vector3D.Falling(this.gameObject, fallingSpeed);
+            }
+        }
+        if (colliders.grounded)
+        {
+            timer = 0f;
         }
         if (Input.GetKey(KeyCode.D))
         {
@@ -44,13 +54,9 @@ public class Movement : MonoBehaviour
             UpdatePosition = Vector3D.Position(this.gameObject);
             this.gameObject.transform.position = StartVector.Translate(new Vector3D(this.gameObject.transform.position.x - moveSpeedLeft, UpdatePosition.y, UpdatePosition.z));
         }
-        else if (Input.GetKey(KeyCode.W) && collider.grounded)
-        {
-            UpdatePosition = Vector3D.Position(this.gameObject);
-            this.gameObject.transform.position = StartVector.Translate(new Vector3D(UpdatePosition.x, this.gameObject.transform.position.y + 10 * Time.deltaTime, UpdatePosition.z));
-        }
         UpdatePosition = Vector3D.Position(this.gameObject);
-        this.transform.position = StartVector.Translate(new Vector3D(UpdatePosition.x, UpdatePosition.y, this.gameObject.transform.position.z + speed));
+        this.transform.position = StartVector.Translate(new Vector3D(UpdatePosition.x, UpdatePosition.y, (this.gameObject.transform.position.z + speed*Time.deltaTime)));
     }
+
 
 }

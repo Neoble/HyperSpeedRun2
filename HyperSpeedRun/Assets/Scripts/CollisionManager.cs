@@ -39,7 +39,7 @@ public class CollisionManager : MonoBehaviour
                     }
                     else if (ColliderA is BoxCollider && ColliderB is SphereCollider)
                     {
-                        colliding = HandleCollision((SphereCollider)ColliderB, (BoxCollider)ColliderA);
+                        colliding = HandleCollision((SphereCollider)ColliderB,(BoxCollider) ColliderA);
                     }
 
                     if (colliding)
@@ -59,7 +59,7 @@ public class CollisionManager : MonoBehaviour
 
     private static bool HandleCollision(SphereCollider ColliderA, SphereCollider ColliderB)
     {
-        return (ColliderA.WorldCenter - ColliderB.WorldCenter).Magnitude() < ColliderA.SphereRadius + ColliderB.SphereRadius;
+        return  (ColliderA.WorldCenter-ColliderB.WorldCenter).Magnitude()< ColliderA.SphereRadius + ColliderB.SphereRadius ;
     }
     private static bool HandleCollision(SphereCollider ColliderA, BoxCollider ColliderB)
     {
