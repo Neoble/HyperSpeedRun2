@@ -18,7 +18,6 @@ public class BoxCollider : MonoBehaviour
         if (Sphere != null)
         {
 
-            //position = center, localScale = scale
             float MinX = Self.transform.position.x - (Self.transform.localScale.x / 2);
             float MinY = Self.transform.position.y - (Self.transform.localScale.y / 2);
             float MinZ = Self.transform.position.z - (Self.transform.localScale.z / 2);
@@ -55,16 +54,13 @@ public class BoxCollider : MonoBehaviour
             OnCollision = collisionCheck.CheckIfCollisionBox(Sphere, this.gameObject);
             if (OnCollision)
             {
-                // Ground
                 if (this.gameObject.layer == 8)
                 {
                     Sphere.GetComponent<SphereCollision>().Fallingspeed = 0;
                     timer = 0f;
 
-                    // JumpBox
                     if (this.gameObject.tag == "JumpBox")
                     {
-                        //Sphere.GetComponent<AudioSource>().
                         Sphere.GetComponent<SphereCollision>().JumpSpeed = 1;
                         isJumping = true;
                         SoundSource.clip = AudioContainer.au_Jump;
@@ -72,11 +68,9 @@ public class BoxCollider : MonoBehaviour
                     }
                 }
 
-                // Obstacle
                 if (this.gameObject.tag == "Obstacle")
                 {
                     Sphere.GetComponent<Ball_Movement>().crashed = true;
-                    // Play Sound
                     if (!SoundSource.isPlaying)
                     {
                         SoundSource.clip = AudioContainer.au_Collision;
